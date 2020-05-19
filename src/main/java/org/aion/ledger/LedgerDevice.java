@@ -2,7 +2,6 @@ package org.aion.ledger;
 
 import org.aion.ledger.exceptions.CommsException;
 import org.aion.ledger.exceptions.LedgerWriteException;
-import org.hid4java.HidServices;
 
 import javax.annotation.Nonnull;
 import java.nio.ByteBuffer;
@@ -15,7 +14,6 @@ import static org.aion.ledger.ByteUtilities.merge;
 import static org.aion.ledger.ByteUtilities.trimTail;
 import static org.aion.ledger.Constants.CHANNEL;
 import static org.aion.ledger.Constants.PACKET_SIZE;
-import static org.aion.ledger.LedgerUtilities.bytesToHex;
 import static org.aion.ledger.LedgerUtilities.hexToBytes;
 
 public abstract class LedgerDevice {
@@ -53,7 +51,6 @@ public abstract class LedgerDevice {
 
     private static final byte[] SPECIAL_FAIL_ARR = hexToBytes("01010500BF0001040000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
 
-    @SuppressWarnings("Duplicates")
     public byte[] exchange(@Nonnull final byte[] input) throws CommsException {
         assert input.length >= 5;
         assert (input.length - 5) == input[4];
