@@ -24,5 +24,6 @@ public class LedgerUtilitiesHardwareTest {
     public void testLedgerConnected() throws IOException {
         LedgerDevice device = LedgerUtilities.findLedgerDevice();
         assertThat(device).isNotNull();
+        device.close();
     }
 }
