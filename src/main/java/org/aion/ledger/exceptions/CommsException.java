@@ -9,6 +9,12 @@ import static org.aion.ledger.LedgerUtilities.shortToHex;
  * TODO: integration ledger exception here
  */
 public class CommsException extends Exception {
+	private static final long serialVersionUID = 1750104948271483916L;
+	
+	// Status words, section 27 of https://blog.ledger.com/btchip-doc/bitcoin-technical.html#_lifecycle_management_apdus
+	public static final int RESP_INCORRECT_APP = 0x6e00;
+	public static final int RESP_SECURITY_STATUS_LOCKED = 0x6982;
+	public static final int RESP_INCORRECT_PARAMETERS = 0x6B00;
 
     private final int respCode;
 

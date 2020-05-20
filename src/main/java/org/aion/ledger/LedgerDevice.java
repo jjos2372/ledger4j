@@ -144,6 +144,9 @@ public abstract class LedgerDevice {
                 break;
             }
         }
+        
+        if(deserialized.length < 2)
+        	throw new CommsException(0, "Status word not received");
 
         // interpret results of deserialization
         final int swOffset = deserialized.length - 2;
@@ -151,15 +154,12 @@ public abstract class LedgerDevice {
         switch(sw) {
             case 0x9000:
                 return trimTail(deserialized, 2);
-            case 0x6982:
+            case CommsException.RESP_SECURITY_STATUS_LOCKED:
                 throw new CommsException(sw, "Have you installed the existing CA with resetCustomCA first?");
-            case 0x6985:
-                throw new CommsException(sw, "Condition of use not satisifed (denied by user?");
-            case 0x6a84:
-            case 0x6a85:
-                throw new CommsException(sw, "Not enough space?");
-            case 0x6484:
-                throw new CommsException(sw, "Are you using the correct targetId?");
+            case CommsException.RESP_INCORRECT_APP:
+                throw new CommsException(sw, "Unexpected state of device: verify that the right application is opened?");
+            case CommsException.RESP_INCORRECT_PARAMETERS:
+            	throw new CommsException(sw, "Incorrect parameter P1 or P2");            
             default:
                 throw new CommsException(sw, "Unknown reason");
         }
