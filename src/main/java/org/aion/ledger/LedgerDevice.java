@@ -82,6 +82,11 @@ public abstract class LedgerDevice {
         LOOP:
         while (true) {
             byte[] respPacket = read(1000);
+            
+            // Handle null response (when the app is not open on the device)
+            if(respPacket == null)
+            	throw new CommsException("null response to read, app not open?");
+            
             ledgerResponse = merge(ledgerResponse, respPacket);
 
             try {
