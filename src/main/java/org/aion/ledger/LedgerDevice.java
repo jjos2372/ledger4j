@@ -53,7 +53,7 @@ public abstract class LedgerDevice {
 
     public byte[] exchange(@Nonnull final byte[] input) throws CommsException {
         assert input.length >= 5;
-        assert (input.length - 5) == input[4];
+        assert ((byte)input.length - (byte)5) == input[4];
 
         final byte[] wrappedInput = wrapCommandAPDU(CHANNEL, input, false);
 
